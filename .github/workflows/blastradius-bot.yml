@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: DeepanshuOP/blastradius
-          ref: 05a350b113783cc782215f566a1fe1546abd2b03  # pinned to the pushed upgrade-2.1 commit
+          ref: ac606d75d6a4444c0bff3e6094cc8465cb862e9b  # pinned to the pushed upgrade-2.1 commit
           path: .blastradius-tool
 
       - name: Install uv and Python 3.11
@@ -43,7 +43,7 @@ jobs:
 
       - name: Install BlastRadius (ml extra for the E1 and E2 models, rag extra for retrieval)
         working-directory: .blastradius-tool
-        run: uv sync --extra ml --extra rag
+        run: uv sync --extra graph --extra ml --extra rag
 
       - name: Install the sandbox repository's own dependencies into the same environment
         # EDIT THIS to the way your sandbox repository installs itself and its tests' dependencies.
@@ -66,7 +66,7 @@ jobs:
           # Every request and reply is cached here and uploaded below, so a run can be replayed offline.
           BR_LLM_CACHE_DIR: ${{ github.workspace }}/.blastradius-cache
         run: >
-          uv run --extra ml --extra rag python -m src.agents bot
+          uv run --extra graph --extra ml --extra rag python -m src.agents bot
           --repo "$GITHUB_WORKSPACE"
           --base ${{ github.event.pull_request.base.sha }}
           --head ${{ github.event.pull_request.head.sha }}
