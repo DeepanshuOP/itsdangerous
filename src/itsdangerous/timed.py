@@ -138,7 +138,7 @@ class TimestampSigner(Signer):
         if max_age is not None:
             age = self.get_timestamp() - ts_int
 
-            if age < max_age:
+            if age > max_age:
                 raise SignatureExpired(
                     f"Signature age {age} > {max_age} seconds",
                     payload=value,
